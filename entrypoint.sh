@@ -14,6 +14,9 @@ do
 	VARS+=" -var=\"$i\" "
 done
 
-ls $GITHUB_WORKSPACE
+for entry in "$GITHUB_WORKSPACE"/*
+do
+  echo "$entry"
+done
 
 nomad job run $VARS "$GITHUB_WORKSPACE/$NOMAD_JOB"
