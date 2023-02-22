@@ -11,4 +11,6 @@ do
 	VARS+=" -var=\"$i\" "
 done
 
+ls $GITHUB_WORKSPACE
+
 nomad job run $VARS "$GITHUB_WORKSPACE/$NOMAD_JOB"
