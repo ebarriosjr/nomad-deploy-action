@@ -1,4 +1,19 @@
 #!/bin/sh
+if [ -z "$NOMAD_JOB" ];
+then
+  echo "NOMAD_JOB variable requiered."
+  exit 2
+fi
+
+if [ -z "$NOMAD_ADDR" ];
+then
+  NOMAD_ADDR = "http://127.0.0.1"
+fi
+
+if [ -z "$NOMAD_PORT" ];
+then
+  NOMAD_PORT = "4646"
+fi
 
 if ! command -v nomad &> /dev/null
 then
