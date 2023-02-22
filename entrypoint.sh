@@ -14,8 +14,6 @@ do
 	VARS+=" -var=\"$i\" "
 done
 
-cat "$GITHUB_WORKSPACE/deployments/nomad.job"
-
 echo "Vars: $VARS"
 echo "Nomad Job: $GITHUB_WORKSPACE/$NOMAD_JOB"
 
