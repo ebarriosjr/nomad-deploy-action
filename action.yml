@@ -1,4 +1,4 @@
-name: Nomad Deploy
+name: Nomad Deploy with envs
 description: Deploy code to nomad
 author: Esteban Barrios
 runs:
