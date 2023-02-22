@@ -21,4 +21,7 @@ done
 
 cat "$GITHUB_WORKSPACE/deployments/nomad.job"
 
+echo "Vars: $VARS"
+echo "Nomad Job: $GITHUB_WORKSPACE/$NOMAD_JOB"
+
 nomad job run $VARS "$GITHUB_WORKSPACE/$NOMAD_JOB"
