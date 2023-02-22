@@ -19,4 +19,4 @@ cat "$GITHUB_WORKSPACE/deployments/nomad.job"
 echo "Vars: $VARS"
 echo "Nomad Job: $GITHUB_WORKSPACE/$NOMAD_JOB"
 
-nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB
+NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB
