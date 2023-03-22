@@ -22,14 +22,21 @@ then
   sudo apt-get update && sudo apt-get install nomad
 fi
 
-# VARS should be a list of var_name=value
-VARS=""
-for i in $VARIABLES
-do
-	VARS+=" -var=\"$i\" "
-done
+NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
+RESULT="$?"
 
-echo "Vars: $VARS"
-echo "Nomad Job: $GITHUB_WORKSPACE/$NOMAD_JOB"
-
-NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS -preserve-counts $GITHUB_WORKSPACE/$NOMAD_JOB
+# check result of nomad job run
+if [ "$RESULT" == "1" ]; then
+    echo -e "nomad exit Code:" $RESULT "\n[ERROR] FAILED to deploy job"
+    exit 1
+elif [ "$RESULT" == "3" ]; then
+    echo -e "nomad exit Code:" $RESULT "\n[ERROR] Job rolled back after failed deployment"
+    exit 1
+else
+elif [ "$RESULT" == "2" ]; then
+    echo -e "nomad exit Code:" $RESULT "\n[WARN] RESOURCE EXHAUSTION detected.\n[WARN] Please verify your job in the nomad UI"
+    exit 0
+else
+    echo "SUCCESSFULL deploy nomad job"
+    exit 0
+fi
