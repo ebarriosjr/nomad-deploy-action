@@ -32,7 +32,6 @@ if [ "$RESULT" == "1" ]; then
 elif [ "$RESULT" == "3" ]; then
     echo -e "nomad exit Code:" $RESULT "\n[ERROR] Job rolled back after failed deployment"
     exit 1
-else
 elif [ "$RESULT" == "2" ]; then
     echo -e "nomad exit Code:" $RESULT "\n[WARN] RESOURCE EXHAUSTION detected.\n[WARN] Please verify your job in the nomad UI"
     exit 0
