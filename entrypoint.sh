@@ -19,7 +19,7 @@ if ! command -v nomad &> /dev/null
 then
   curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
   sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-  sudo apt-get update && sudo apt-get install nomad
+  sudo apt-get update && sudo apt-get install -y nomad
 fi
 
 NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
