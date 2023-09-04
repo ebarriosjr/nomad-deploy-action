@@ -26,12 +26,13 @@ then
   rm nomad.zip
 fi
 
-NOMAD_RESULT=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB 
+echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB""
+NOMAD_RESULT=$(NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB)
 RESULT="$?"
 
 # check if job was rolled back
 if [ "$RESULT" == "0" ]; then
-    NOMAD_ROLLBACK= $NOMAD_RESULT | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
+    NOMAD_ROLLBACK=$(echo "${NOMAD_RESULT}" | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}')
     RESULT="$?"
 fi
 
