@@ -27,7 +27,7 @@ then
   unzip -qq nomad.zip && \
   mv nomad /usr/local/bin/ && \
   rm nomad.zip
-  echo -e "Installed Nomad version:" $(NOMAD_VERSION)
+  echo -e "Installed:" $(nomad version)
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB""
