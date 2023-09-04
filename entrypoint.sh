@@ -10,20 +10,24 @@ fi
 
 if [ -z "$NOMAD_ADDR" ];
 then
+  echo -e "NOMAD_ADDR variable not set.\nUsing default value: http://127.0.0.1"
   NOMAD_ADDR = "http://127.0.0.1"
 fi
 
 if [ -z "$NOMAD_PORT" ];
 then
+  echo -e "NOMAD_PORT variable not set.\nUsing default value: 4646"
   NOMAD_PORT = "4646"
 fi
 
 if ! command -v nomad &> /dev/null
 then
-  curl https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
-  unzip nomad.zip && \
+  echo -e "Installing nomad..."
+  curl -sS https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
+  unzip -qq nomad.zip && \
   mv nomad /usr/local/bin/ && \
   rm nomad.zip
+  echo -e "Installed Nomad version:" $(NOMAD_VERSION)
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB""
