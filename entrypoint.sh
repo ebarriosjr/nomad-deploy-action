@@ -27,7 +27,7 @@ then
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB""
-NOMAD_RESULT=$(NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB)
+NOMAD_RESULT=$(NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB | tee /dev/stdout)
 RESULT="$?"
 
 # check if job was rolled back
