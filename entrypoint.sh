@@ -26,8 +26,14 @@ then
   rm nomad.zip
 fi
 
-NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
+NOMAD_RESULT=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB 
 RESULT="$?"
+
+# check if job was rolled back
+if [ "$RESULT" == "0" ]; then
+    NOMAD_ROLLBACK= $NOMAD_RESULT | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
+    RESULT="$?"
+fi
 
 # check result of nomad job run
 if [ "$RESULT" == "1" ]; then
