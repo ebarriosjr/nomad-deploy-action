@@ -20,7 +20,7 @@ fi
 
 if ! command -v nomad &> /dev/null
 then
-  curl https://releases.hashicorp.com/nomad/$NOMAD_VERSION/nomad_$NOMAD_VERSION.zip -o nomad.zip && \
+  curl https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
   unzip nomad.zip && \
   mv nomad /usr/local/bin/ && \
   rm nomad.zip
