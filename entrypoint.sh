@@ -1,4 +1,7 @@
 #!/bin/sh
+
+NOMAD_VERSION="1.6.1"
+
 if [ -z "$NOMAD_JOB" ];
 then
   echo "NOMAD_JOB variable requiered."
@@ -17,9 +20,10 @@ fi
 
 if ! command -v nomad &> /dev/null
 then
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - && \
-  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
-  sudo apt-get update && sudo apt-get install -y nomad
+  curl https://releases.hashicorp.com/nomad/$NOMAD_VERSION/nomad_$NOMAD_VERSION.zip -o nomad.zip && \
+  unzip nomad.zip && \
+  mv nomad /usr/local/bin/ && \
+  rm nomad.zip
 fi
 
 NOMAD_ADDR=$NOMAD_ADDR:$NOMAD_PORT nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB | sed '/rolling back to job/h; ${p;x;/./Q3;Q0}'
