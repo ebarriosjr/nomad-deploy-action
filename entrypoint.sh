@@ -20,6 +20,12 @@ then
   NOMAD_PORT = "4646"
 fi
 
+if [ -z "$NOMAD_ACTION" ];
+then
+  echo -e "NOMAD_ACTION variable not set.\nUsing default value: run"
+  NOMAD_ACTION = "run"
+fi"
+
 if ! command -v nomad &> /dev/null
 then
   echo -e "Installing nomad..."
@@ -30,8 +36,8 @@ then
   echo -e "Installed:" $(nomad version)
 fi
 
-echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB""
-NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job run $VARS $GITHUB_WORKSPACE/$NOMAD_JOB
+echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB"\nNOMAD_ACTION:" $NOMAD_ACTION
+NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $VARS $GITHUB_WORKSPACE/$NOMAD_JOB
 RESULT="$?"
 
 # check if job was rolled back
