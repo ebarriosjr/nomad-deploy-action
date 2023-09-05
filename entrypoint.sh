@@ -31,7 +31,7 @@ then
   NOMAD_ACTION="run"
 fi
 
-if [ ${purge} == true ];
+if [ ${purge} ];
 then
   FLAGS="${FLAGS} -purge"
 fi
@@ -51,7 +51,7 @@ then
   FLAGS="${FLAGS} -token=${token}"
 fi
 
-if [ ${detach} == true ];
+if [ ${detach} ];
 then
   FLAGS="${FLAGS} -detach"
 fi
