@@ -16,19 +16,19 @@ fi
 if [ -z "$NOMAD_ADDR" ];
 then
   echo -e "NOMAD_ADDR variable not set.\nUsing default value: http://127.0.0.1"
-  NOMAD_ADDR = "http://127.0.0.1"
+  NOMAD_ADDR="http://127.0.0.1"
 fi
 
 if [ -z "$NOMAD_PORT" ];
 then
   echo -e "NOMAD_PORT variable not set.\nUsing default value: 4646"
-  NOMAD_PORT = "4646"
+  NOMAD_PORT="4646"
 fi
 
 if [ -z "$NOMAD_ACTION" ];
 then
   echo -e "NOMAD_ACTION variable not set.\nUsing default value: run"
-  NOMAD_ACTION = "run"
+  NOMAD_ACTION="run"
 fi
 
 if [ $purge == "true" ];
