@@ -46,7 +46,7 @@ if [ "$RESULT" == "0" ]; then
     RESULT="$?"
 fi
 
-# check result of nomad job run
+# check result of nomad job $NOMAD_ACTION
 if [ "$RESULT" == "1" ]; then
     echo -e "nomad exit Code:" $RESULT "\n[ERROR] FAILED to deploy job"
     exit 1
