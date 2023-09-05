@@ -4,8 +4,13 @@ NOMAD_VERSION="1.6.1"
 
 if [ -z "$NOMAD_JOB" ];
 then
-  echo "NOMAD_JOB variable requiered."
-  exit 2
+  if [ -z "$NOMAD_JOB_NAME" ];
+  then
+    echo "NOMAD_JOB or NOMAD_JOB_NAME variable requiered."
+    exit 2
+  else
+    NOMAD_JOB=$NOMAD_JOB_NAME
+  fi
 fi
 
 if [ -z "$NOMAD_ADDR" ];
@@ -24,7 +29,32 @@ if [ -z "$NOMAD_ACTION" ];
 then
   echo -e "NOMAD_ACTION variable not set.\nUsing default value: run"
   NOMAD_ACTION = "run"
-fi"
+fi
+
+if [ $purge == "true" ];
+then
+  FLAGS="${FLAGS} -purge"
+fi
+
+if [ -z $namespace ];
+then
+  FLAGS="${FLAGS} -namespace=${namespace}"
+fi
+
+if [ -z $region];
+then
+  FLAGS="${FLAGS} -region=${region}"
+fi
+
+if [ -z $token];
+then
+  FLAGS="${FLAGS} -token=${token}"
+fi
+
+if [ $detach == "true" ];
+then
+  FLAGS="${FLAGS} -detach"
+fi
 
 if ! command -v nomad &> /dev/null
 then
@@ -37,7 +67,7 @@ then
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB"\nNOMAD_ACTION:" $NOMAD_ACTION
-NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $VARS $GITHUB_WORKSPACE/$NOMAD_JOB
+NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $FLAGS $GITHUB_WORKSPACE/$NOMAD_JOB
 RESULT="$?"
 
 # check if job was rolled back
