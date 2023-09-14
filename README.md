@@ -3,12 +3,19 @@ This repo will take a Nomad job, replace variables and deploy the job file.
 
 ## Environment Variables
 
-| Variable   | Details                  | Default            | Example                    |
-|-------------|--------------------------|--------------------|----------------------------|
-| NOMAD_JOB   | The Nomad job file path. |                    | `nomad-jobs/dev/app.nomad` |
-| NOMAD_ADDR  | The remote Nomad url.    | `http://127.0.0.1` | `https://example.com`      |
-| NOMAD_PORT  | The remote Nomad port.   | `4646`             | `4646`                     |
-| NOMAD_VAR_* | Variables needed to template the file. Format NOMAD_VAR_variable_name = value.| | |
+| Variable       | Details                  | Default            | Example                    |
+|----------------|--------------------------|--------------------|----------------------------|
+| NOMAD_JOB      | The Nomad job file path. |                    | `nomad-jobs/dev/app.nomad` |
+| NOMAD_JOB_NAME | The Nomad job name.      |                    | `my-awesome-app`           |
+| NOMAD_ADDR     | The remote Nomad url.    | `http://127.0.0.1` | `https://example.com`      |
+| NOMAD_PORT     | The remote Nomad port.   | `4646`             | `4646`                     |
+| NOMAD_ACTION   | The action to execute.   | `run`              | `stop`                     |
+| namespace      | Namespace flag.          |                    | `production`               |
+| region         | Region flag.             |                    | `eu-central-1`             |
+| token          | Token flag.              |                    | `my-secret-token`          |
+| purge          | Add flag to purge the job| `false`            | `true`                     |
+| detach         | Detach flag.             | `false`            | `true`                     |
+| NOMAD_VAR_*    | Variables needed to template the file. Format NOMAD_VAR_variable_name = value.| | |
 
 # WARNINGS
 
