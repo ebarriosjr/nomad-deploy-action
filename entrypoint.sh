@@ -25,10 +25,17 @@ then
   NOMAD_PORT="4646"
 fi
 
+# if no nomad action is set use run as default
 if [ -z "$NOMAD_ACTION" ];
 then
   echo -e "NOMAD_ACTION variable not set.\nUsing default value: run"
   NOMAD_ACTION="run"
+fi
+
+# If the action is set to run replace the nomad job with the path + the job name
+if [ "$NOMAD_ACTION" == "run" ];
+then
+  NOMAD_JOB="${GITHUB_WORKSPACE}/${NOMAD_JOB}"
 fi
 
 if [ ${purge} ];
@@ -67,7 +74,7 @@ then
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB"\nNOMAD_ACTION:" $NOMAD_ACTION
-NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $FLAGS $GITHUB_WORKSPACE/$NOMAD_JOB
+NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $FLAGS $NOMAD_JOB
 RESULT="$?"
 
 # check if job was rolled back
