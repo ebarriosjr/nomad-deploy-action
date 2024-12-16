@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NOMAD_VERSION="1.6.1"
+NOMAD_VERSION="1.8.4"
 
 if [ -z "$NOMAD_JOB" ];
 then
