@@ -63,18 +63,18 @@ then
   FLAGS="${FLAGS} -detach"
 fi
 
-if ! command -v nomad &> /dev/null
+if ! command -v /usr/local/bin/nomad &> /dev/null
 then
   echo -e "Installing nomad..."
   curl -sS https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
   unzip -qq nomad.zip && \
   mv nomad /usr/local/bin/ && \
   rm nomad.zip
-  echo -e "Installed:" $(nomad version)
+  echo -e "Installed:" $(/usr/local/bin/nomad version)
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB"\nNOMAD_ACTION:" $NOMAD_ACTION
-NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} nomad job ${NOMAD_ACTION} $FLAGS $NOMAD_JOB
+NOMAD_ADDR=${NOMAD_ADDR}:${NOMAD_PORT} /usr/local/bin/nomad job ${NOMAD_ACTION} $FLAGS $NOMAD_JOB
 RESULT="$?"
 
 # check if job was rolled back
