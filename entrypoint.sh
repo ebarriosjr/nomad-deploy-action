@@ -68,7 +68,7 @@ then
   echo -e "Installing nomad..."
   curl -sS https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
   unzip -qq nomad.zip && \
-  mv nomad /usr/local/bin/ && \
+  mv -f nomad /usr/local/bin/ && \
   rm nomad.zip
   echo -e "Installed:" $(nomad version)
 fi
