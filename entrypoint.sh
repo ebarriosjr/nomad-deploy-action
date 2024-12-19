@@ -63,14 +63,14 @@ then
   FLAGS="${FLAGS} -detach"
 fi
 
-if ! command -v /usr/local/bin/nomad &> /dev/null
+if ! command -v nomad &> /dev/null
 then
   echo -e "Installing nomad..."
   curl -sS https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip -o nomad.zip && \
   unzip -qq nomad.zip && \
-  mv -f nomad /usr/local/bin/ && \
+  mv nomad /usr/local/bin/ && \
   rm nomad.zip
-  echo -e "Installed:" $(/usr/local/bin/nomad version)
+  echo -e "Installed:" $(nomad version)
 fi
 
 echo -e "NOMAD_ADDR:" $NOMAD_ADDR "\nNOMAD_PORT:" $NOMAD_PORT "\nNOMAD_JOB:" $NOMAD_JOB"\nNOMAD_ACTION:" $NOMAD_ACTION
